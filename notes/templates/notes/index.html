@@ -1,11 +1,9 @@
-{% extends "notes/base.html" %}
-{% load static %}
-
-{% block content %}
+{% extends "notes/base.html" %} {% load static %} {% block content %}
 <img src="{% static 'notes/img/logo-getit.png' %}" />
 <p>Como o Post-it, mas com outro verbo</p>
 
 <form method="post">
+  {% csrf_token %}
   <label for="titulo">Título</label>
   <input id="titulo" type="text" name="titulo" />
   <label for="detalhes">Detalhes</label>
@@ -14,6 +12,9 @@
 </form>
 
 <ul>
-  <li>Nenhuma anotação por enquanto.</li>
+  {% for note in notes %}
+  <li>{{ note.title }} : {{ note.content }}</li>
+  {% endfor %}
 </ul>
+
 {% endblock %}
